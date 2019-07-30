@@ -1,3 +1,4 @@
+const path = require("path");
 const nknWallet = require('nkn-wallet');
 const nkn = require('nkn-client');
 const rpcCall = require('nkn-client/lib/rpc');
@@ -12,13 +13,14 @@ const SEEDLIST= config.seedList.testnet;
 class NKNClient extends nkn {
     constructor({username, password})  {
         let wallet;
-        if (!fs.existsSync(`../custom/${username}.json`)) {
-            console.log("new wallet", `./custom/${username}.json`)
+        let walletFilePath = path.join(__dirname, `../custom/${username}.json`);
+        if (!fs.existsSync(walletFilePath)) {
+            console.log("new wallet: ", walletFilePath)
             wallet = nknWallet.newWallet(password);
-            fs.writeFileSync(`./${username}.json`, wallet.toJSON())
+            fs.writeFileSync(walletFilePath, wallet.toJSON())
         } else {
-            console.log("open wallet", `./custom/${username}.json`)
-            let text = fs.readFileSync(`./custom/${username}.json`, 'utf8');
+            console.log("open wallet: ", walletFilePath)
+            let text = fs.readFileSync(walletFilePath, 'utf8');
             wallet = nknWallet.loadJsonWallet(text, password);
         }
 

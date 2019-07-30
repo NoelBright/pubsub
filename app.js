@@ -7,7 +7,7 @@ const NKNClient = require('./helpers/nkn');
 const { wxPush } = require('./helpers/wechat');
 const Topics = require("./models/topics");
 const Users = require("./models/users");
-//TODO log, argv
+const errHandler = require("./middlewares/errorHandler");
 
 var db = mongoose.connect('mongodb://localhost:27017/myDbs',{ useNewUrlParser: true });
 
@@ -45,12 +45,8 @@ const app = express()
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', routers)
-
-app.use(function (err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send('Something broke!')
-})
+app.use(routers);
+app.use(errHandler);
 
 app.listen(3001,() => {
     console.log('app listening on port 3001.')
