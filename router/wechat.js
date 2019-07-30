@@ -1,5 +1,5 @@
 const express = require("express");
-const { wxMiddlewareBuilder } = require('../util/wechat');
+const { wxMiddlewareBuilder,wxPush } = require('../util/wechat');
 
 
 const router = express.Router();

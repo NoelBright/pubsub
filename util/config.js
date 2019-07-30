@@ -53,9 +53,9 @@ const config = {
     wechat: {
         appID: "wxa5c9fcc985243eda",
         appSecret: "4dcf6abfdb46273f4179188b4b1805f3",
-        token: "ccc",
-        templateID:"ddd",
-        templateDest:"eee"
+        token: "hello2019",
+        templateID:"RMpUXM4qbbQLbds2-M0KCjLkSAHNXZ0wIYiQ7XJxC1s",
+        templateDest:"pseudo"
     }
 }
 

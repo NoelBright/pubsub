@@ -11,6 +11,6 @@ client.on('connect', () => {
     client.publish(
         'pubsuba9e1d960cf5a5324b4e8f1d2c9e2a45c2008903c',
         0,
-        'hello world!',
+        JSON.stringify({"topic": "NoelBright2", "data": "helloworld"}),
     );
 });

@@ -19,7 +19,7 @@ const wxMiddlewareBuilder = function (fn) {
 
 const wxPush = async function (openID, text) {
   let data = {
-    text: {
+    content: {
       value: text,
       color: '#173177'
     }
