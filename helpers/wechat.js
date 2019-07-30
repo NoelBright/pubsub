@@ -1,7 +1,7 @@
 const WechatAPI = require('wechat-api');
 const wechat = require('wechat');
 const {promisify} = require('util');
-const config = require('./config');
+const config = require('../config/config');
 
 const appID = config.wechat.appID;
 const appSecret = config.wechat.appSecret; 

@@ -1,14 +1,13 @@
 const express = require('express');
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser"); const cookieParser = require('cookie-parser');
-const users = require('./router/users');
-const topics = require('./router/topics');
-const wechat = require('./router/wechat');
-const NKNClient = require('./util/nkn');
-const { wxPush } = require('./util/wechat');
+const bodyParser = require("body-parser"); 
+const cookieParser = require('cookie-parser');
+const routers = require('./controllers/index');
+const NKNClient = require('./helpers/nkn');
+const { wxPush } = require('./helpers/wechat');
 const Topics = require("./models/topics");
 const Users = require("./models/users");
-//TODO log
+//TODO log, argv
 
 var db = mongoose.connect('mongodb://localhost:27017/myDbs',{ useNewUrlParser: true });
 
@@ -46,13 +45,14 @@ const app = express()
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', routers)
 
-app.use('/api/v1/users', users)
-app.use('/api/v1/topics', topics)
-app.use('/wx', wechat)
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Something broke!')
+})
 
-
-app.listen(80,() => {
+app.listen(3001,() => {
     console.log('app listening on port 3001.')
 })
 

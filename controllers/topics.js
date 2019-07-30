@@ -1,6 +1,6 @@
 const express = require("express");
 const Topics = require("../models/topics");
-const Util = require("../util/util");
+const Util = require("../helpers/util");
 
 const router = express.Router();
 
