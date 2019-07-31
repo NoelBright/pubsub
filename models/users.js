@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('../helpers/db');
 
 const userSchema = mongoose.Schema({
   name : {
@@ -19,7 +19,7 @@ const userSchema = mongoose.Schema({
 })
 
 userSchema.statics.findByName = function (name, callback) {
-    this.find({ name: new RegExp(name, 'i') }, callback);
+    return this.find({name: new RegExp(name, 'i')}).sort({'ordinal': -1}).limit(1);
 }
 
 module.exports = mongoose.model('users', userSchema);

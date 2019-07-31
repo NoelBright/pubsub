@@ -1,0 +1,7 @@
+[2019-07-31T19:09:40.218] [INFO] nknService - send to wechatid "oo0KmxNcPfQKLz8IWggjqyyv1c1w" with message "helloworld"
+[2019-07-31T19:16:14.380] [INFO] log - open log file:  /Users/zhangwei/Workbench/Nodejs/nkn-pub-sub/custom/logs/app.log
+[2019-07-31T19:16:14.565] [INFO] nkn - open wallet:  /Users/zhangwei/Workbench/Nodejs/nkn-pub-sub/custom/pubsubserver001.json
+[2019-07-31T19:16:14.596] [INFO] nkn - connecting to NKN node: http://34.83.47.154:30003
+[2019-07-31T19:16:14.619] [INFO] app - app listening on port 3001
+[2019-07-31T19:16:14.630] [INFO] mongodb - Mongoose connection open to mongodb://localhost:27017/myDbs
+[2019-07-31T19:16:16.262] [INFO] nknService - connected to NKN node

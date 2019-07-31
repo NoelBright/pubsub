@@ -1,4 +1,8 @@
 const config = {
+    port: 3001,
+    mongdbURL: "mongodb://localhost:27017/myDbs",
+    logFile: "custom/logs/app.log",
+    network: "testnet",
     seedList: {
         mainnet: [
             'http://mainnet-seed-0001.nkn.org:30003',
@@ -55,7 +59,7 @@ const config = {
         appSecret: "4dcf6abfdb46273f4179188b4b1805f3",
         token: "hello2019",
         templateID:"RMpUXM4qbbQLbds2-M0KCjLkSAHNXZ0wIYiQ7XJxC1s",
-        templateDest:"pseudo"
+        templateDest:""
     }
 }
 

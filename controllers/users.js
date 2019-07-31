@@ -1,54 +1,51 @@
 const express = require("express");
-const Users = require("../models/users");
+const UserService = require("../services/userService");
+const Logger = require('../helpers/logger');
 
+const logger = Logger.getLogger('users');
 const router = express.Router();
+const userService = new UserService();
 
-// 查询
 router.get("/", (req, res) => {
-    Users.find({})
-        .sort({ update_at: -1 })
-        .then(user=> {res.json(user)})
-        .catch(err => {res.json(err)});
+    userService.getUserList().then(users => {
+        res.json(users)
+    }).catch(err => {
+        res.json(err)
+    });
 });
 
-// 通过name查询
 router.get("/:name", (req, res) => {
-    Users.findByName(req.params.name, (err, user) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(user);
-        }
+    userService.getUserByName(req.params.name).then(user => {
+        res.json(user);
+    }).catch(err => {
+        res.json(err);
     });
 });
 
-// 添加new user
 router.post("/", (req, res) => {
-    let user = req.body;
-    Users.create(user, (err, user) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(user);
-        }
+    userService.createUser(req.body).then(user => {
+        res.json(user);
+    }).catch(err => {
+        res.json(err);
     });
 });
 
-//更新
 router.put("/:name", (req, res) => {
-    Users.findOneAndUpdate(
-        {name: req.params.name}, 
-        {$push: {topics: req.body}},
-        {new: true})
-        .then(user => res.json(user))
-        .catch(err => res.json(err))
+    userService.updateUser(req.params.name, req.body).then(user => {
+        res.json(user);
+    }).catch(err => {
+        res.json(err);
+    });
 });
 
-//删除
+
 router.delete("/:name", (req, res) => {
-    Users.findOneAndRemove({name: req.params.name})
-        .then(user => res.send(`{result: "${user.name} delete successfully"}`))
-        .catch(err => res.json(err));
+    userService.deleteUser(req.params.name).then(user => {
+        res.json(user);
+    }).catch(err => {
+        res.json(err);
+    });
 });
 
 module.exports = router;
+

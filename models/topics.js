@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('../helpers/db')
 
 const topicSchema = mongoose.Schema({
     topic: {
@@ -15,7 +15,8 @@ const topicSchema = mongoose.Schema({
 })
 
 topicSchema.statics.findByTopic= function (topic, callback) {
-    this.find({ topic: new RegExp(topic, 'i') }, callback);
+    return this.find({topic: new RegExp(topic, 'i')}).sort({'ordinal': -1}).limit(1);
+
 }
 
 module.exports = mongoose.model('topics', topicSchema);

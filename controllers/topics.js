@@ -1,66 +1,50 @@
 const express = require("express");
-const Topics = require("../models/topics");
-const Util = require("../helpers/util");
+const TopicService = require("../services/topicService");
+const Logger = require('../helpers/logger');
 
+const logger = Logger.getLogger('topics');
 const router = express.Router();
+const topicService = new TopicService();
 
-// 查询
+
 router.get("/", (req, res) => {
-    Topics.find({})
-        .sort({ update_at: -1 })
-        .then(topics=> {res.json(topics)})
-        .catch(err => {res.json(err)});
-});
-
-// 通过topic查询
-router.get("/:topic", (req, res) => {
-    Topics.findByTopic(req.params.topic, (err, topic) => {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(topic);
-        }
+    topicService.getTopicList().then(topics => {
+        res.json(topics);
+    }).catch(err => {
+        res.json(err);
     });
 });
 
-// 添加
+router.get("/:topic", (req, res) => {
+    topicService.getTopicByName(req.params.topic).then(topic => {
+        res.json(topic);
+    }).catch(err => {
+        res.json(err);
+    });
+});
+
 router.post("/", (req, res) => {
-    let msg = req.body;
-    let topicID = Util.genTopicID(msg.topic);
-    msg.topicid = topicID;
-
-    global.nknClient.subscribe(topicID)
-        .then(txId => {
-            console.log('Subscription transaction:', txId);
-            Topics.create(msg, (err, msg) => {
-                if (err) {
-                    res.json(err);
-                } else {
-                    res.json(msg);
-                }
-            });
-        })
-        .catch(err => {
-            console.log('Errored at subscribe. Already subscribed?', err);
-        });
+    topicService.createTopic(req.body).then(topic => {
+        res.json(topic);
+    }).catch(err => {
+        res.json(err);
+    });
 });
 
-//更新
 router.put("/:topic", (req, res) => {
-    Topics.findOneAndUpdate(
-        { topic: req.params.topic },
-        { $push: { subscribers: req.body } },
-        { new: true }
-    )
-        .then(user => res.json(user))
-        .catch(err => res.json(err));
+    topicService.updateTopic(req.params.topic, req.body).then(topic => {
+        res.json(topic);
+    }).catch(err => {
+        res.json(err);
+    });
 });
 
-//删除
 router.delete("/:topic", (req, res) => {
-    Topics.findOneAndRemove({ topic: req.params.topic })
-        .then(topic => res.send(`${topic.topic} delete successfully`))
-        .catch(err => res.json(err));
+    topicService.deleteTopic(req.params.topic).then(topic => {
+        res.json(topic);
+    }).catch(err => {
+        res.json(err);
+    });
 });
 
 module.exports = router;
