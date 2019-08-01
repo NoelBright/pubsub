@@ -1,5 +1,6 @@
 const config = {
-    port: 3001,
+    walletName: "pubsubserver001",
+    port: 80,
     mongdbURL: "mongodb://localhost:27017/myDbs",
     logFile: "custom/logs/app.log",
     network: "testnet",

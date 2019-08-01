@@ -13,8 +13,8 @@ const checkSignature = false;
 const wxAPI = new WechatAPI(appID, appSecret)
 const sendTemplate = promisify(wxAPI.sendTemplate).bind(wxAPI)
 
-const wxMiddlewareBuilder = function (fn) {
-  return wechat({ token, appID, checkSignature }).text(fn).middlewarify()
+const wxMiddlewareBuilder = function (textFn, eventFn) {
+  return wechat({ token, appID, checkSignature }).text(textFn).event(eventFn).middlewarify()
 }
 
 const wxPush = async function (openID, text) {

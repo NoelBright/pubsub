@@ -12,7 +12,6 @@ client.on('connect', () => {
     client.publish(
         'pubsuba9e1d960cf5a5324b4e8f1d2c9e2a45c2008903c',
         0,
-        JSON.stringify({"topic": "noelbright", "content": "helloworld"}),
-        //JSON.stringify({"content":"sadsddsf","contentType":"text","topic":"Libra-test","timestamp":"Wed, 31 Jul 2019 08:13:16 GMT"}),
+        JSON.stringify({"topic": "noelbright", "content": `${process.argv[2]}`}),
     );
 });
